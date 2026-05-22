@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CUIMS Staff Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="sidebar-top">
+          <a class="brand" href="#" aria-label="CUIMS Dashboard">
+            <img src="logo.png" alt="CUIMS" />
+          </a>
+          <button class="icon-button nav-toggle" id="navToggle" type="button" aria-label="Toggle menu">
+            <i data-lucide="menu"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-scroll">
+          <nav class="side-nav" aria-label="Primary navigation">
+            <button class="nav-item" type="button"><i data-lucide="graduation-cap"></i><span>Academics</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="circle-dollar-sign"></i><span>Accounts</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="building-2"></i><span>Administration</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="user-plus"></i><span>Admission</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item single" type="button"><i data-lucide="clipboard-check"></i><span>Admission Referral Form</span></button>
+            <button class="nav-item" type="button"><i data-lucide="baby"></i><span>Creche Facility</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="badge-check"></i><span>DCPD</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="book-open"></i><span>E Library</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="users-round"></i><span>Human Resources</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="boxes"></i><span>Inventory</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="library"></i><span>Library Management</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="notebook-pen"></i><span>Meeting Minutes</span><i data-lucide="chevron-down"></i></button>
+            <button class="nav-item" type="button"><i data-lucide="file-stack"></i><span>Miscellaneous Forms</span><i data-lucide="chevron-down"></i></button>
+          </nav>
+
+          <div class="nav-section-title">My Preferences</div>
+          <nav class="side-nav preferences" aria-label="Preferences">
+            <button class="nav-item single" type="button"><i data-lucide="landmark"></i><span>Registrar Office Policies</span></button>
+            <button class="nav-item single" type="button"><i data-lucide="flask-conical"></i><span>Research and Development</span></button>
+            <button class="nav-item single" type="button"><i data-lucide="folder-open"></i><span>Resource Library</span></button>
+            <button class="nav-item" type="button"><i data-lucide="heart-handshake"></i><span>Student Welfare</span><i data-lucide="chevron-down"></i></button>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <span>V.2025</span>
+          <button class="logout-button" type="button"><i data-lucide="log-out"></i>Log Out</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar">
+          <button class="icon-button mobile-menu" id="mobileMenu" type="button" aria-label="Open menu">
+            <i data-lucide="menu"></i>
+          </button>
+
+          <div class="weather-pill">
+            <strong>May 21, 2026</strong>
+            <span class="sun"><i data-lucide="sun"></i></span>
+            <span><b>45°C</b><small>Clear sky</small></span>
+          </div>
+
+          <label class="search-pill" aria-label="Search and bookmark your page">
+            <i data-lucide="search"></i>
+            <input type="search" placeholder="Search & Bookmark your page" />
+          </label>
+
+          <div class="mode-switch" role="group" aria-label="Theme">
+            <button class="active" type="button" data-theme-option="light" aria-pressed="true"><i data-lucide="sun"></i>Light</button>
+            <button type="button" data-theme-option="dark" aria-pressed="false"><i data-lucide="moon"></i>Dark</button>
+          </div>
+
+          <div class="quick-icons">
+            <button class="icon-button" type="button" aria-label="Home"><i data-lucide="home"></i></button>
+            <button class="icon-button has-badge" type="button" aria-label="Notifications"><i data-lucide="bell"></i><span>3</span></button>
+            <button class="icon-button" type="button" aria-label="Messages"><i data-lucide="message-square-text"></i></button>
+          </div>
+
+          <button class="profile-pill" type="button">
+            <span><b>Dhananjay</b><small>E20176</small></span>
+            <span class="avatar avatar-user"><img src="profile-dummy.svg" alt="Dhananjay profile" /></span>
+            <i data-lucide="chevron-down"></i>
+          </button>
+        </header>
+
+        <section class="hero-row">
+          <div class="greeting">
+            <p>Good afternoon,</p>
+            <h1>Dhananjay Kumar Verma</h1>
+            <blockquote>
+              <i data-lucide="quote"></i>
+              Perseverance is not a long race; it is many short races one after another. — Walter Elliot.
+              <i data-lucide="quote"></i>
+            </blockquote>
+          </div>
+
+          <div class="shortcut-panel">
+            <button class="shortcut-nav shortcut-prev" type="button" aria-label="Previous shortcut"><i data-lucide="chevron-left"></i></button>
+            <div class="shortcut-grid owl-carousel" id="shortcutGrid">
+              <article class="shortcut-card cyan-soft">
+                <i data-lucide="messages-square" class="shortcut-icon"></i>
+                <h3>Chat Conversation</h3>
+                <p>Click to view</p>
+                <button type="button" aria-label="Open chat conversation"><i data-lucide="arrow-right"></i></button>
+              </article>
+              <article class="shortcut-card red-soft">
+                <i data-lucide="link-2" class="shortcut-icon"></i>
+                <h3>Important Links</h3>
+                <p>Click to view</p>
+                <button type="button" aria-label="Open important links"><i data-lucide="arrow-right"></i></button>
+              </article>
+              <article class="shortcut-card blue-soft">
+                <i data-lucide="reply" class="shortcut-icon"></i>
+                <h3>Feedback</h3>
+                <p>Click to view</p>
+                <button type="button" aria-label="Open feedback"><i data-lucide="arrow-right"></i></button>
+              </article>
+              <article class="shortcut-card green-soft">
+                <i data-lucide="graduation-cap" class="shortcut-icon"></i>
+                <h3>LMS</h3>
+                <p>Click to view</p>
+                <button type="button" aria-label="Open LMS"><i data-lucide="arrow-right"></i></button>
+              </article>
+              <article class="shortcut-card red-soft">
+                <i data-lucide="circle-plus" class="shortcut-icon"></i>
+                <h3>Add New</h3>
+                <p>Click to view</p>
+                <button type="button" aria-label="Add new"><i data-lucide="arrow-right"></i></button>
+              </article>
+            </div>
+            <button class="shortcut-nav shortcut-next" type="button" aria-label="Next shortcut"><i data-lucide="chevron-right"></i></button>
+          </div>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="glass-card messages-card">
+            <div class="card-head">
+              <h2><i data-lucide="message-circle-more"></i>Important Messages</h2>
+              <button class="ghost-btn" type="button">View All</button>
+            </div>
+            <div class="message-box">
+              <span class="dot"></span>
+              <p>
+                <b>1.Short Leave(Second half)</b> applied for dated:<b>15 May 2026</b>
+                approved by <b>Pratik Singh Rana::E17989</b>
+                <br />Administrator (May 21 2026 3:23PM)
+              </p>
+            </div>
+            <div class="message-actions">
+              <button type="button"><i data-lucide="message-circle"></i>All Messages (1)</button>
+              <button type="button"><i data-lucide="mail-open"></i>LEAVE Messages (1)</button>
+            </div>
+          </article>
+
+          <article class="glass-card attendance-card">
+            <div class="card-head attendance-head">
+              <h2><i data-lucide="calendar-check"></i>Attendance Log</h2>
+              <button class="soft-red-btn" type="button">View Attendance</button>
+            </div>
+            <button class="slider-btn left" type="button" aria-label="Previous days"><i data-lucide="chevron-left"></i></button>
+            <div class="attendance-list owl-carousel" id="attendanceList"></div>
+            <button class="slider-btn right" type="button" aria-label="Next days"><i data-lucide="chevron-right"></i></button>
+            <p class="updated">Last updated as on: 21-May-2026 14:41</p>
+          </article>
+
+          <article class="tab-card glass-card timetable-card">
+            <div class="tabs">
+              <button class="active" type="button"><i data-lucide="message-square"></i>Today's Timetable</button>
+              <button type="button"><i data-lucide="calendar-clock"></i>To Do List</button>
+            </div>
+            <div class="empty-state">
+              <div class="empty-graphic">
+                <i data-lucide="calendar-clock"></i>
+              </div>
+              <p>No timetable has been<br />assigned to you at this time.</p>
+            </div>
+          </article>
+
+          <div class="middle-stack">
+            <article class="glass-card query-card">
+              <div class="card-head">
+                <h2><i data-lucide="badge-help"></i>My Questions Or Queries</h2>
+              </div>
+              <div class="stats-row">
+                <div class="stat purple"><i data-lucide="layout-grid"></i><span>Total</span><b>0</b></div>
+                <div class="stat teal"><i data-lucide="circle-check"></i><span>Closed</span><b>0</b></div>
+                <div class="stat red"><i data-lucide="circle-help"></i><span>Open</span><b>0</b></div>
+              </div>
+            </article>
+
+            <article class="glass-card feedback-card">
+              <div class="card-head">
+                <h2><i data-lucide="list-checks"></i>Feedback To Answer</h2>
+              </div>
+              <div class="feedback-tabs">
+                <button class="active" type="button">Student</button>
+                <button type="button">Staff</button>
+              </div>
+              <div class="feedback-counts">
+                <span>0</span><span>0</span><span>0</span>
+              </div>
+            </article>
+          </div>
+
+          <div class="right-column">
+            <article class="glass-card team-card">
+              <div class="card-head team-head">
+                <h2><i data-lucide="network"></i>My Team (28)</h2>
+                <label class="staff-search"><i data-lucide="search"></i><input type="search" placeholder="Staff Search" /></label>
+              </div>
+              <div class="team-list" id="teamList"></div>
+              <a class="view-all" href="#">View All <i data-lucide="arrow-right"></i></a>
+            </article>
+
+            <div class="right-stack">
+              <article class="glass-card events-card">
+                <div class="card-head">
+                  <h2><i data-lucide="calendar-check"></i>Upcoming Events</h2>
+                </div>
+                <p>No event found. Please contact your concerned Event Coordinator to display your event information.</p>
+                <i data-lucide="calendar-days" class="event-watermark"></i>
+              </article>
+
+              <article class="glass-card jobs-card">
+                <div class="card-head">
+                  <h2><i data-lucide="briefcase-business"></i>Internal Job Postings</h2>
+                </div>
+                <div class="empty-copy">
+                  <b>There are currently no open positions.</b>
+                  <p>We appreciate your interest and encourage you to visit again for future openings.</p>
+                </div>
+              </article>
+            </div>
+          </div>
+
+          <article class="glass-card announcements-card">
+            <div class="card-head announcement-head">
+              <h2><i data-lucide="megaphone"></i>Announcements</h2>
+              <label><input type="search" placeholder="Search Announcement" /><i data-lucide="search"></i></label>
+              <select aria-label="Filter announcements">
+                <option>ALL</option>
+                <option>Unread</option>
+                <option>Important</option>
+              </select>
+            </div>
+            <div class="announcement-detail">
+              <p>Subject Name</p>
+              <p>Number of Subjects</p>
+              <p>
+                In case of any discrepancy or issue, you may <b>visit the Examination Cell in Block-A1 on or before 24th May 2026</b>
+                for the necessary resolution. No request shall be entertained after the mentioned date.
+              </p>
+              <b>CUIMS screenshot for the reference</b>
+              <div class="cuims-preview" aria-label="CUIMS reference preview">
+                <div class="preview-sidebar">
+                  <span></span><span></span><span></span><span class="active"></span><span></span><span></span>
+                </div>
+                <div class="preview-body">
+                  <div class="preview-top"></div>
+                  <div class="preview-cards"><span></span><span></span><span></span><span></span></div>
+                  <div class="preview-content"><span></span><span></span><span></span></div>
+                </div>
+              </div>
+              <p class="uploaded-by">Uploaded by: Kamaljeet Kaur (JOURNALISM AND MASS COMMUNICATION)</p>
+            </div>
+            <div class="announcement-item">
+              <i data-lucide="pin"></i>
+              <b>NOTICE: ANSWER SHEET SHOWING SCHEDULE FOR MAY-JUNE 2026 EXAMINATIONS</b>
+              <i data-lucide="chevron-right"></i>
+            </div>
+          </article>
+        </section>
+
+        <footer class="site-footer">
+          <div class="footer-help">
+            <div>
+              <b>Women Helpline No.</b>
+              <span>1800 1900 2222</span>
+            </div>
+            <div>
+              <b>General Helpline No:</b>
+              <span>0160-5017000</span>
+            </div>
+            <div>
+              <b>Wifi Hostels Helpline No.</b>
+              <span>7347017909 <em>(Mr. Jaspreet Singh)</em></span>
+            </div>
+            <a class="footer-logo" href="#" aria-label="CUIMS">
+              <img src="logo.png" alt="CUIMS" />
+            </a>
+          </div>
+          <div class="footer-bottom">
+            <p>© 2025 Chandigarh University, Gharuan, Mohali (Punjab)</p>
+            <a href="mailto:staffcare@cuchd.in"><i data-lucide="mail"></i>staffcare@cuchd.in</a>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

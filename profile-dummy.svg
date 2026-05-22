@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Dummy profile image</title>
+  <desc id="desc">A simple illustrated staff profile placeholder.</desc>
+  <rect width="120" height="120" rx="22" fill="#d9d4d1"/>
+  <circle cx="60" cy="42" r="22" fill="#ffd0ad"/>
+  <path d="M34 112c3-30 18-46 26-46s23 16 26 46H34z" fill="#2d5578"/>
+  <path d="M38 41c2-19 15-29 31-25 13 3 21 13 16 31-4-9-10-14-18-15-10-2-19 1-29 9z" fill="#2b2f3a"/>
+  <circle cx="51" cy="43" r="3" fill="#243047"/>
+  <circle cx="70" cy="43" r="3" fill="#243047"/>
+  <path d="M52 55c6 5 13 5 19 0" fill="none" stroke="#a15d52" stroke-width="3" stroke-linecap="round"/>
+</svg>
