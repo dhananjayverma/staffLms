@@ -69,14 +69,17 @@ function setupAttendanceCarousel() {
     carousel.owlCarousel({
       autoplay: true,
       autoplayHoverPause: true,
-      autoplaySpeed: 700,
-      autoplayTimeout: 2200,
+      autoplaySpeed: 1200,
+      autoplayTimeout: 4200,
       dots: false,
-      loop: attendance.length > 5,
+      loop: attendance.length > 1,
       margin: 14,
       nav: false,
       slideBy: 1,
-      smartSpeed: 450,
+      smartSpeed: 900,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
       responsive: {
         0: { items: 1 },
         620: { items: 2 },
@@ -90,21 +93,32 @@ function setupAttendanceCarousel() {
     return;
   }
 
+  let isAutoScrolling = false;
+
   const scrollAttendance = (direction) => {
     const firstCard = list.querySelector(".attendance-day");
     const cardWidth = firstCard ? firstCard.offsetWidth : 180;
     const listGap = Number.parseFloat(window.getComputedStyle(list).columnGap) || 14;
 
+    if (isAutoScrolling) {
+      return;
+    }
+
+    isAutoScrolling = true;
     list.scrollBy({
       left: direction * (cardWidth + listGap),
       behavior: "smooth",
     });
+
+    window.setTimeout(() => {
+      isAutoScrolling = false;
+    }, 900);
   };
 
   list.classList.add("attendance-fallback-carousel");
   prevButton.addEventListener("click", () => scrollAttendance(-1));
   nextButton.addEventListener("click", () => scrollAttendance(1));
-  window.setInterval(() => scrollAttendance(1), 2200);
+  window.setInterval(() => scrollAttendance(1), 4200);
 }
 
 function renderTeam() {
@@ -217,13 +231,17 @@ function setupShortcutScroller() {
     carousel.owlCarousel({
       autoplay: true,
       autoplayHoverPause: true,
-      autoplaySpeed: 800,
-      autoplayTimeout: 2400,
+      autoplaySpeed: 1200,
+      autoplayTimeout: 4200,
       dots: false,
       loop: true,
       margin: 16,
       nav: false,
-      smartSpeed: 500,
+      slideBy: 1,
+      smartSpeed: 900,
+      mouseDrag: true,
+      touchDrag: true,
+      pullDrag: true,
       responsive: {
         0: { items: 1 },
         700: { items: 2 },
