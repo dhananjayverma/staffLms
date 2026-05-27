@@ -299,6 +299,87 @@ function setupShortcutScroller() {
   nextButton.addEventListener("click", () => scrollShortcuts(1));
 }
 
+function setupProfileModal() {
+  const pill     = document.querySelector("#profilePillBtn");
+  const overlay  = document.querySelector("#profileModal");
+  const closeBtn = document.querySelector("#profileModalClose");
+  const modal    = overlay?.querySelector(".profile-modal");
+
+  if (!pill || !overlay || !closeBtn) return;
+
+  const openModal = () => {
+    overlay.classList.add("pm-open");
+    pill.setAttribute("aria-expanded", "true");
+    document.body.style.overflow = "hidden";
+    // Reset scroll position
+    if (modal) modal.scrollTop = 0;
+    // Render lucide icons inside the modal
+    if (window.lucide) lucide.createIcons();
+  };
+
+  const closeModal = () => {
+    overlay.classList.remove("pm-open");
+    pill.setAttribute("aria-expanded", "false");
+    document.body.style.overflow = "";
+  };
+
+  pill.addEventListener("click", openModal);
+  closeBtn.addEventListener("click", closeModal);
+
+  // Close on backdrop click (outside modal card)
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeModal();
+  });
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.classList.contains("pm-open")) closeModal();
+  });
+
+  // Tab switching with indicator slide
+  const tabsContainer = overlay.querySelector(".pm-tabs");
+  const tabs          = overlay.querySelectorAll(".pm-tab");
+  const panels        = overlay.querySelectorAll(".pm-tab-panel");
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const target = tab.dataset.pmTab;
+
+      // Update tab active states
+      tabs.forEach((t) => {
+        t.classList.remove("active");
+        t.setAttribute("aria-selected", "false");
+      });
+      tab.classList.add("active");
+      tab.setAttribute("aria-selected", "true");
+
+      // Slide the indicator pill
+      if (tabsContainer) tabsContainer.dataset.active = target;
+
+      // Swap panels with fade
+      panels.forEach((p) => {
+        p.classList.add("pm-tab-hidden");
+        p.style.animation = "none";
+      });
+
+      const targetPanel = overlay.querySelector(`#pm-${target}`);
+      if (targetPanel) {
+        targetPanel.classList.remove("pm-tab-hidden");
+        // Force reflow to restart animation
+        void targetPanel.offsetWidth;
+        targetPanel.style.animation = "";
+      }
+
+      // Scroll modal back to tabs on switch
+      if (modal) {
+        const tabsTop = tabsContainer?.offsetTop ?? 0;
+        modal.scrollTo({ top: Math.max(0, tabsTop - 20), behavior: "smooth" });
+      }
+    });
+  });
+}
+
+
 document.addEventListener("DOMContentLoaded", () => {
   renderAttendance();
   renderTeam();
@@ -306,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupTheme();
   setupShortcutScroller();
   setupAttendanceCarousel();
+  setupProfileModal();
 
   if (window.lucide) {
     lucide.createIcons();

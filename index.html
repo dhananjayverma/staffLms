@@ -88,7 +88,7 @@
             <button class="icon-button" type="button" aria-label="Messages"><i data-lucide="message-square-text"></i></button>
           </div>
 
-          <button class="profile-pill" type="button">
+          <button class="profile-pill" type="button" id="profilePillBtn" aria-haspopup="dialog" aria-expanded="false">
             <span><b>Dhananjay</b><small>E20176</small></span>
             <span class="avatar avatar-user"><img src="profile-dummy.svg" alt="Dhananjay profile" /></span>
             <i data-lucide="chevron-down"></i>
@@ -307,6 +307,173 @@
           </div>
         </footer>
       </main>
+    </div>
+
+    <!-- ══ Profile Modal ══ -->
+    <div class="profile-modal-overlay" id="profileModal" role="dialog" aria-modal="true" aria-label="Employee Profile">
+      <div class="profile-modal">
+
+        <!-- Hero Banner -->
+        <div class="pm-hero">
+          <div class="pm-hero-shapes" aria-hidden="true">
+            <span class="ps1"></span><span class="ps2"></span><span class="ps3"></span>
+            <span class="ps4"></span><span class="ps5"></span><span class="ps6"></span>
+          </div>
+          <button class="pm-close" id="profileModalClose" type="button" aria-label="Close profile">
+            <i data-lucide="x"></i>
+          </button>
+          <div class="pm-hero-body">
+            <div class="pm-avatar-wrap">
+              <div class="pm-avatar-ring">
+                <img src="profile-dummy.svg" alt="Dhananjay Kumar Verma" class="pm-avatar-img" />
+              </div>
+              <span class="pm-online-dot" title="Online"></span>
+            </div>
+            <div class="pm-hero-info">
+              <h2>Dhananjay Kumar Verma</h2>
+              <p><i data-lucide="briefcase"></i>UI/UX Developer (ERP)</p>
+              <div class="pm-hero-tags">
+                <span><i data-lucide="building-2"></i>Chandigarh University</span>
+                <span><i data-lucide="map-pin"></i>Punjab, India</span>
+              </div>
+            </div>
+          </div>
+          <div class="pm-stats">
+            <div class="pm-stat">
+              <i data-lucide="badge-check"></i>
+              <span>Employee Code</span>
+              <b>E20176</b>
+            </div>
+            <div class="pm-stat">
+              <i data-lucide="layers"></i>
+              <span>Category</span>
+              <b>Non-Teaching</b>
+            </div>
+            <div class="pm-stat">
+              <i data-lucide="timer"></i>
+              <span>Total Exp.</span>
+              <b>0.08 Yrs</b>
+            </div>
+            <div class="pm-stat">
+              <i data-lucide="university"></i>
+              <span>Exp. in CU</span>
+              <b>0.08 Yrs</b>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alert Banner -->
+        <div class="pm-alert">
+          <span class="pm-alert-icon"><i data-lucide="info"></i></span>
+          <p>Please verify your experience in the <b>Timeline</b> tab. For corrections, contact <b>HR Department</b>.</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="pm-tabs" role="tablist">
+          <button class="pm-tab active" role="tab" data-pm-tab="about" aria-selected="true">
+            <i data-lucide="user"></i><span>About</span>
+          </button>
+          <button class="pm-tab" role="tab" data-pm-tab="timeline" aria-selected="false">
+            <i data-lucide="clock"></i><span>Timeline</span>
+          </button>
+          <div class="pm-tab-indicator"></div>
+        </div>
+
+        <!-- Tab: About -->
+        <div class="pm-tab-panel" id="pm-about">
+          <div class="pm-info-grid">
+
+            <!-- Basic Information -->
+            <div class="pm-info-section">
+              <h3 class="pm-section-title">
+                <span class="pm-section-icon" style="background:linear-gradient(135deg,#8b5cf6,#6d28d9)">
+                  <i data-lucide="user-circle-2"></i>
+                </span>
+                Basic Information
+              </h3>
+              <div class="pm-rows">
+                <div class="pm-row"><i data-lucide="users"></i><span>Father's Name</span><b>Manoj Kumar Verma</b></div>
+                <div class="pm-row"><i data-lucide="users"></i><span>Mother's Name</span><b>Sanju Devi</b></div>
+                <div class="pm-row"><i data-lucide="calendar"></i><span>Date of Birth</span><b>18 Apr 1997</b></div>
+                <div class="pm-row"><i data-lucide="user"></i><span>Gender</span><b>Male</b></div>
+                <div class="pm-row"><i data-lucide="heart-pulse"></i><span>Blood Group</span><b><span class="pm-badge blood">A−</span></b></div>
+                <div class="pm-row"><i data-lucide="layers"></i><span>Caste</span><b><span class="pm-badge">GEN</span></b></div>
+              </div>
+            </div>
+
+            <!-- Contact Information -->
+            <div class="pm-info-section">
+              <h3 class="pm-section-title">
+                <span class="pm-section-icon" style="background:linear-gradient(135deg,#06b6d4,#0891b2)">
+                  <i data-lucide="phone"></i>
+                </span>
+                Contact Information
+              </h3>
+              <div class="pm-rows">
+                <div class="pm-row"><i data-lucide="smartphone"></i><span>Personal Mobile</span><b><a href="tel:8618946980">8618946980</a></b></div>
+                <div class="pm-row"><i data-lucide="phone"></i><span>Official Mobile</span><b class="pm-empty">—</b></div>
+                <div class="pm-row pm-row-wrap"><i data-lucide="mail"></i><span>Personal Email</span><b><a href="mailto:dhanajaykumarverma088@gmail.com">dhanajaykumarverma088@gmail.com</a></b></div>
+                <div class="pm-row pm-row-wrap"><i data-lucide="mail-check"></i><span>Official Email</span><b><a href="mailto:dhananjay.e20176@cumail.in">dhananjay.e20176@cumail.in</a></b></div>
+                <div class="pm-row"><i data-lucide="phone-call"></i><span>Emergency Contact</span><b>9546251027</b></div>
+                <div class="pm-row"><i data-lucide="phone-off"></i><span>Landline</span><b class="pm-empty">—</b></div>
+              </div>
+            </div>
+
+            <!-- Other Information -->
+            <div class="pm-info-section">
+              <h3 class="pm-section-title">
+                <span class="pm-section-icon" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+                  <i data-lucide="file-text"></i>
+                </span>
+                Other Information
+              </h3>
+              <div class="pm-rows">
+                <div class="pm-row"><i data-lucide="calendar-check"></i><span>Date of Joining</span><b>20 Apr 2026</b></div>
+                <div class="pm-row"><i data-lucide="flag"></i><span>Nationality</span><b>Indian</b></div>
+                <div class="pm-row"><i data-lucide="church"></i><span>Religion</span><b>Hindu</b></div>
+                <div class="pm-row"><i data-lucide="heart"></i><span>Marital Status</span><b><span class="pm-badge green">Single</span></b></div>
+                <div class="pm-row"><i data-lucide="credit-card"></i><span>PAN No.</span><b>BXAPV2937B</b></div>
+                <div class="pm-row"><i data-lucide="hash"></i><span>ESI / UAN</span><b class="pm-empty">Not Assigned</b></div>
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="pm-info-section">
+              <h3 class="pm-section-title">
+                <span class="pm-section-icon" style="background:linear-gradient(135deg,#10b981,#059669)">
+                  <i data-lucide="map-pin"></i>
+                </span>
+                Address
+              </h3>
+              <div class="pm-rows">
+                <div class="pm-row pm-row-address">
+                  <i data-lucide="home"></i>
+                  <span>Permanent</span>
+                  <b>Ward No. 26, Near Amin Lodge, Chandmari, Motihari, East Champaran, Bihar — 845401</b>
+                </div>
+                <div class="pm-row pm-row-address">
+                  <i data-lucide="send"></i>
+                  <span>Correspondence</span>
+                  <b>Ward No. 26, Near Amin Lodge, Chandmari, Motihari, East Champaran, Bihar — 845401</b>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Tab: Timeline -->
+        <div class="pm-tab-panel pm-tab-hidden" id="pm-timeline">
+          <div class="pm-timeline-empty">
+            <div class="pm-timeline-icon-wrap">
+              <i data-lucide="clock-8"></i>
+            </div>
+            <p>No timeline entries yet.<br><span>Contact HR Department to update your records.</span></p>
+            <a href="mailto:staffcare@cuchd.in" class="pm-contact-hr-btn"><i data-lucide="mail"></i>Contact HR</a>
+          </div>
+        </div>
+
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
