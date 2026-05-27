@@ -22,6 +22,9 @@ body {
   min-height: 100vh;
   color: var(--ink);
   font-family: "Inter", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
   background:
     radial-gradient(circle at 26% 17%, rgba(204, 222, 255, 0.88), transparent 32%),
     radial-gradient(circle at 88% 3%, rgba(202, 201, 255, 0.76), transparent 27%),
@@ -575,7 +578,7 @@ body.dark-theme .profile-pill {
   place-items: center;
   color: #fff;
   font-size: 10px;
-  font-weight: 800;
+  font-weight: 700;
   background: var(--red);
   border-radius: 999px;
 }
@@ -602,13 +605,13 @@ body.dark-theme .profile-pill {
 }
 
 .profile-pill b {
-  font-size: 15px;
+  font-size: 13.5px;
   line-height: 1.05;
   white-space: nowrap;
 }
 
 .profile-pill small {
-  font-size: 12px;
+  font-size: 11px;
   line-height: 1.05;
 }
 
@@ -653,14 +656,14 @@ body.dark-theme .profile-pill {
 
 .greeting p {
   margin: 0 0 8px;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: 500;
 }
 
 .greeting h1 {
-  margin: 0 0 22px;
+  margin: 0 0 20px;
   color: var(--red);
-  font-size: 34px;
+  font-size: 28px;
   line-height: 1.1;
   letter-spacing: 0;
 }
@@ -671,9 +674,9 @@ body.dark-theme .profile-pill {
   max-width: 500px;
   margin: 0;
   color: #313b55;
-  font-size: 15px;
-  font-weight: 700;
-  line-height: 1.75;
+  font-size: 13.5px;
+  font-weight: 500;
+  line-height: 1.65;
 }
 
 .greeting blockquote svg {
@@ -768,17 +771,18 @@ body.dark-theme .profile-pill {
 
 .shortcut-card h3 {
   margin: 14px 50px 6px 0;
-  font-size: 16px;
+  font-size: 14px;
+  font-weight: 600;
   line-height: 1.3;
-  letter-spacing: 0;
+  letter-spacing: -0.01em;
 }
 
 .shortcut-card p {
   margin: 0;
   color: #6f778f;
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -916,7 +920,8 @@ body.dark-theme .shortcut-nav {
   align-items: center;
   gap: 12px;
   margin: 0;
-  font-size: 18px;
+  font-size: 15px;
+  font-weight: 700;
 }
 
 .card-head h2 svg {
@@ -925,13 +930,14 @@ body.dark-theme .shortcut-nav {
 
 .ghost-btn,
 .soft-red-btn {
-  min-height: 38px;
-  padding: 0 18px;
+  min-height: 34px;
+  padding: 0 14px;
   color: #24304a;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 700;
   background: rgba(255, 255, 255, 0.64);
   border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 10px;
+  border-radius: 9px;
 }
 
 .soft-red-btn {
@@ -985,11 +991,15 @@ body.dark-theme .shortcut-nav {
 .message-box p {
   margin: 0;
   color: #172f4f;
-  font-size: 13px;
-  font-weight: 700;
-  line-height: 1.75;
+  font-size: 12.5px;
+  font-weight: 500;
+  line-height: 1.65;
   overflow-wrap: break-word;
   word-break: break-word;
+}
+
+.message-box p b {
+  font-weight: 700;
 }
 
 .message-actions {
@@ -1003,18 +1013,18 @@ body.dark-theme .shortcut-nav {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 0 18px;
+  gap: 8px;
+  min-height: 38px;
+  padding: 0 14px;
   color: #24304a;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.98);
   border: 1px solid rgba(226, 232, 240, 0.9);
-  border-radius: 14px;
+  border-radius: 11px;
   box-shadow:
     inset 0 1px 2px rgba(255, 255, 255, 0.85),
-    0 10px 18px rgba(77, 94, 135, 0.08);
+    0 8px 16px rgba(77, 94, 135, 0.06);
 }
 
 .message-actions button:last-child {
@@ -1044,7 +1054,7 @@ body.dark-theme .shortcut-nav {
 }
 
 .attendance-head h2 {
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .attendance-head h2 svg {
@@ -1053,10 +1063,10 @@ body.dark-theme .shortcut-nav {
 }
 
 .attendance-head .soft-red-btn {
-  min-height: 40px;
-  padding: 0 24px;
-  font-size: 14px;
-  border-radius: 12px;
+  min-height: 34px;
+  padding: 0 16px;
+  font-size: 12px;
+  border-radius: 9px;
 }
 
 .attendance-list {
@@ -1148,11 +1158,16 @@ body.dark-theme .shortcut-nav {
   min-width: 0;
 }
 
-.attendance-date b,
+.attendance-date b {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .attendance-date span {
   display: block;
-  font-size: 14px;
-  font-weight: 800;
+  font-size: 12.5px;
+  font-weight: 500;
 }
 
 .time-row {
@@ -1165,27 +1180,29 @@ body.dark-theme .shortcut-nav {
 .time-row span {
   display: block;
   color: #8b91a3;
-  font-size: 10px;
-  font-weight: 800;
+  font-size: 9.5px;
+  font-weight: 600;
   line-height: 1.1;
   white-space: nowrap;
   text-transform: uppercase;
+  letter-spacing: 0.03em;
 }
 
 .time-row b {
   display: block;
   margin-top: 5px;
   color: #2d364d;
-  font-size: 13px;
+  font-size: 12px;
+  font-weight: 600;
   line-height: 1.1;
   white-space: nowrap;
 }
 
 .status {
-  margin: 24px 0 0;
+  margin: 22px 0 0;
   color: #22a258;
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .slider-btn {
@@ -1254,7 +1271,8 @@ body.dark-theme .shortcut-nav {
   gap: 10px;
   height: 100%;
   color: #3c455c;
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.36);
   border: 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.7);
@@ -1291,7 +1309,8 @@ body.dark-theme .shortcut-nav {
 .empty-state p {
   margin: -5px 0 0;
   color: #48536b;
-  font-weight: 800;
+  font-size: 13px;
+  font-weight: 600;
   line-height: 1.45;
 }
 
@@ -1332,12 +1351,13 @@ body.dark-theme .shortcut-nav {
 }
 
 .stat span {
-  font-size: 13px;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 600;
 }
 
 .stat b {
-  font-size: 24px;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 .stat.purple svg {
@@ -1361,13 +1381,14 @@ body.dark-theme .shortcut-nav {
 }
 
 .feedback-tabs button {
-  min-width: 112px;
-  min-height: 40px;
+  min-width: 100px;
+  min-height: 34px;
   color: #475069;
-  font-weight: 800;
+  font-size: 12px;
+  font-weight: 600;
   background: rgba(255, 255, 255, 0.42);
   border: 1px solid rgba(255, 255, 255, 0.78);
-  border-radius: 10px 10px 0 0;
+  border-radius: 8px 8px 0 0;
 }
 
 .feedback-tabs .active {
@@ -1378,18 +1399,18 @@ body.dark-theme .shortcut-nav {
 .feedback-counts {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  min-height: 50px;
+  min-height: 40px;
   margin: 0 18px 20px;
   border: 1px solid rgba(255, 255, 255, 0.82);
-  border-radius: 0 10px 10px 10px;
+  border-radius: 0 8px 8px 8px;
 }
 
 .feedback-counts span {
   display: grid;
   place-items: center;
   color: #43506b;
-  font-size: 18px;
-  font-weight: 800;
+  font-size: 15px;
+  font-weight: 600;
 }
 
 .feedback-counts span + span {
@@ -1414,7 +1435,7 @@ body.dark-theme .shortcut-nav {
 
 .team-head h2 {
   flex: 0 0 auto;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 1.15;
   white-space: nowrap;
 }
@@ -1490,9 +1511,9 @@ body.dark-theme .shortcut-nav {
 .member h3 {
   overflow: hidden;
   color: #222a3a;
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1.18;
-  font-weight: 800;
+  font-weight: 600;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -1501,16 +1522,16 @@ body.dark-theme .shortcut-nav {
   display: block;
   margin-top: 1px;
   color: #5f6978;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 500;
   line-height: 1.2;
 }
 
 .member p {
   overflow: hidden;
   color: #566172;
-  font-size: 10px;
-  font-weight: 600;
+  font-size: 9.5px;
+  font-weight: 500;
   line-height: 1.35;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1538,7 +1559,7 @@ body.dark-theme .shortcut-nav {
   color: #fff;
   font-size: 8px;
   line-height: 1.1;
-  font-weight: 800;
+  font-weight: 600;
   background: #34445e;
   border-radius: 4px;
 }
@@ -1552,8 +1573,8 @@ body.dark-theme .shortcut-nav {
   color: #16a052;
   align-self: start;
   padding-top: 3px;
-  font-size: 11px;
-  font-weight: 800;
+  font-size: 10.5px;
+  font-weight: 600;
 }
 
 .member button {
@@ -1579,8 +1600,8 @@ body.dark-theme .shortcut-nav {
   width: calc(100% - 36px);
   margin: 1px 16px 11px;
   color: var(--red);
-  font-size: 12px;
-  font-weight: 800;
+  font-size: 11.5px;
+  font-weight: 600;
   text-decoration: none;
 }
 
@@ -1610,7 +1631,7 @@ body.dark-theme .shortcut-nav {
 
 .announcement-head h2 {
   min-width: 220px;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .announcement-head label {
@@ -1739,7 +1760,7 @@ body.dark-theme .shortcut-nav {
 
 .uploaded-by {
   margin-top: 12px !important;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .announcement-item {
@@ -1840,9 +1861,9 @@ body.dark-theme .shortcut-nav {
 
 .footer-help b {
   color: var(--red);
-  font-size: 12px;
+  font-size: 11.5px;
   line-height: 1;
-  font-weight: 800;
+  font-weight: 600;
   text-transform: uppercase;
 }
 
@@ -2069,7 +2090,7 @@ body.dark-theme .shortcut-nav {
   }
 
   .greeting h1 {
-    font-size: 28px;
+    font-size: 22px;
   }
 
   .shortcut-grid,
@@ -2109,13 +2130,15 @@ body.dark-theme .shortcut-nav {
     width: 100%;
   }
 
-  .attendance-date b,
+  .attendance-date b {
+    font-size: 13px;
+  }
   .attendance-date span {
-    font-size: 14px;
+    font-size: 12.5px;
   }
 
   .time-row b {
-    font-size: 13px;
+    font-size: 12px;
   }
 
   .cuims-preview {

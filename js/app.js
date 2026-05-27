@@ -34,6 +34,9 @@ const team = [
 
 function renderAttendance() {
   const list = document.querySelector("#attendanceList");
+  if (!list) {
+    return;
+  }
 
   list.innerHTML = attendance
     .map(
@@ -64,19 +67,19 @@ function setupAttendanceCarousel() {
   }
 
   if (window.jQuery && jQuery.fn.owlCarousel) {
+    list.classList.add("owl-carousel");
     const carousel = jQuery(list);
 
     carousel.owlCarousel({
       autoplay: true,
-      autoplayHoverPause: true,
-      autoplaySpeed: 1200,
-      autoplayTimeout: 4200,
+      autoplayHoverPause: false,
+      autoplayTimeout: 3000,
       dots: false,
-      loop: attendance.length > 1,
+      loop: attendance.length > 3,
       margin: 14,
       nav: false,
       slideBy: 1,
-      smartSpeed: 900,
+      smartSpeed: 450,
       mouseDrag: true,
       touchDrag: true,
       pullDrag: true,
@@ -88,8 +91,16 @@ function setupAttendanceCarousel() {
       },
     });
 
-    prevButton.addEventListener("click", () => carousel.trigger("prev.owl.carousel"));
-    nextButton.addEventListener("click", () => carousel.trigger("next.owl.carousel"));
+    prevButton.addEventListener("click", () => {
+      carousel.trigger("prev.owl.carousel");
+      carousel.trigger("stop.owl.autoplay");
+      carousel.trigger("play.owl.autoplay", [3000]);
+    });
+    nextButton.addEventListener("click", () => {
+      carousel.trigger("next.owl.carousel");
+      carousel.trigger("stop.owl.autoplay");
+      carousel.trigger("play.owl.autoplay", [3000]);
+    });
     return;
   }
 
@@ -123,6 +134,9 @@ function setupAttendanceCarousel() {
 
 function renderTeam() {
   const list = document.querySelector("#teamList");
+  if (!list) {
+    return;
+  }
 
   list.innerHTML = team
     .map(
@@ -155,6 +169,11 @@ function setupNavigation() {
   const mobileMenu = document.querySelector("#mobileMenu");
   const sidebar = document.querySelector("#sidebar");
   const appShell = document.querySelector(".app-shell");
+
+  if (!navToggle || !mobileMenu || !sidebar || !appShell) {
+    return;
+  }
+
   const mobileQuery = window.matchMedia("(max-width: 1050px)");
   let isSidebarAnimating = false;
 
@@ -191,6 +210,10 @@ function setupNavigation() {
 
 function setupTheme() {
   const themeButtons = document.querySelectorAll("[data-theme-option]");
+  if (themeButtons.length === 0) {
+    return;
+  }
+
   const savedTheme = localStorage.getItem("cuims-theme");
   const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
   const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
@@ -226,19 +249,19 @@ function setupShortcutScroller() {
   }
 
   if (window.jQuery && jQuery.fn.owlCarousel) {
+    shortcutGrid.classList.add("owl-carousel");
     const carousel = jQuery(shortcutGrid);
 
     carousel.owlCarousel({
       autoplay: true,
-      autoplayHoverPause: true,
-      autoplaySpeed: 1200,
-      autoplayTimeout: 4200,
+      autoplayHoverPause: false,
+      autoplayTimeout: 3000,
       dots: false,
       loop: true,
       margin: 16,
       nav: false,
       slideBy: 1,
-      smartSpeed: 900,
+      smartSpeed: 450,
       mouseDrag: true,
       touchDrag: true,
       pullDrag: true,
@@ -249,8 +272,16 @@ function setupShortcutScroller() {
       },
     });
 
-    prevButton.addEventListener("click", () => carousel.trigger("prev.owl.carousel"));
-    nextButton.addEventListener("click", () => carousel.trigger("next.owl.carousel"));
+    prevButton.addEventListener("click", () => {
+      carousel.trigger("prev.owl.carousel");
+      carousel.trigger("stop.owl.autoplay");
+      carousel.trigger("play.owl.autoplay", [3000]);
+    });
+    nextButton.addEventListener("click", () => {
+      carousel.trigger("next.owl.carousel");
+      carousel.trigger("stop.owl.autoplay");
+      carousel.trigger("play.owl.autoplay", [3000]);
+    });
     return;
   }
 
@@ -268,13 +299,15 @@ function setupShortcutScroller() {
   nextButton.addEventListener("click", () => scrollShortcuts(1));
 }
 
-renderAttendance();
-renderTeam();
-setupNavigation();
-setupTheme();
-setupShortcutScroller();
-setupAttendanceCarousel();
+document.addEventListener("DOMContentLoaded", () => {
+  renderAttendance();
+  renderTeam();
+  setupNavigation();
+  setupTheme();
+  setupShortcutScroller();
+  setupAttendanceCarousel();
 
-if (window.lucide) {
-  lucide.createIcons();
-}
+  if (window.lucide) {
+    lucide.createIcons();
+  }
+});
