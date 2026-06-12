@@ -17,6 +17,19 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
+    <script>
+      (() => {
+        try {
+          const savedTheme = localStorage.getItem("cuims-theme");
+          const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+          if ((savedTheme || (prefersDark ? "dark" : "light")) === "dark") {
+            document.body.classList.add("dark-theme");
+          }
+        } catch (error) {
+          document.body.classList.remove("dark-theme");
+        }
+      })();
+    </script>
     <div class="app-shell">
       <aside class="sidebar" id="sidebar">
         <div class="sidebar-top">
@@ -145,46 +158,87 @@
         </section>
 
         <section class="dashboard-grid">
-          <article class="glass-card messages-card">
-            <div class="card-head">
-              <h2><i data-lucide="message-circle-more"></i>Important Messages</h2>
-              <button class="ghost-btn" type="button">View All</button>
-            </div>
-            <div class="message-box">
-              <span class="dot"></span>
-              <p>
-                <b>1.Short Leave(Second half)</b> applied for dated:<b>15 May 2026</b>
-                approved by <b>Pratik Singh Rana::E17989</b>
-                <br />Administrator (May 21 2026 3:23PM)
-              </p>
-            </div>
-            <div class="message-actions">
-              <button type="button"><i data-lucide="message-circle"></i>All Messages (1)</button>
-              <button type="button"><i data-lucide="mail-open"></i>LEAVE Messages (1)</button>
-            </div>
-          </article>
+          <div class="left-top-stack">
+            <article class="glass-card messages-card">
+              <div class="card-head">
+                <h2><i data-lucide="message-circle-more"></i>Important Messages</h2>
+                <button class="ghost-btn" type="button">View All</button>
+              </div>
+              <div class="messages-list-wrapper" id="messagesList">
+                <!-- Dynamically rendered by JS -->
+              </div>
+              <div class="message-actions" id="messageActions">
+                <!-- Dynamically rendered by JS -->
+              </div>
+            </article>
+
+            <article class="tab-card glass-card timetable-card">
+              <div class="tabs" id="timetableTabs">
+                <button class="active" type="button" data-tab="timetable"><i data-lucide="calendar-days"></i>Today's Timetable</button>
+                <button type="button" data-tab="todo"><i data-lucide="check-square"></i>To Do List</button>
+              </div>
+              <div class="timetable-panel" id="timetablePanel">
+                <!-- Dynamically rendered by JS -->
+              </div>
+            </article>
+          </div>
 
           <article class="glass-card attendance-card">
             <div class="card-head attendance-head">
-              <h2><i data-lucide="calendar-check"></i>Attendance Log</h2>
-              <button class="soft-red-btn" type="button">View Attendance</button>
-            </div>
-            <button class="slider-btn left" type="button" aria-label="Previous days"><i data-lucide="chevron-left"></i></button>
-            <div class="attendance-list" id="attendanceList"></div>
-            <button class="slider-btn right" type="button" aria-label="Next days"><i data-lucide="chevron-right"></i></button>
-            <p class="updated">Last updated as on: 21-May-2026 14:41</p>
-          </article>
-
-          <article class="tab-card glass-card timetable-card">
-            <div class="tabs">
-              <button class="active" type="button"><i data-lucide="message-square"></i>Today's Timetable</button>
-              <button type="button"><i data-lucide="calendar-clock"></i>To Do List</button>
-            </div>
-            <div class="empty-state">
-              <div class="empty-graphic">
-                <i data-lucide="calendar-clock"></i>
+              <h2><i data-lucide="calendar-check" class="overview-icon"></i>Attendance Overview</h2>
+              <div class="attendance-actions-wrapper">
+                <button class="month-select-btn" type="button">
+                  <i data-lucide="calendar"></i>
+                  <span>May 2026</span>
+                  <i data-lucide="chevron-down"></i>
+                </button>
+                <button class="view-full-btn-top" type="button">
+                  <span>View Full Attendance</span>
+                  <i data-lucide="arrow-right"></i>
+                </button>
               </div>
-              <p>No timetable has been<br />assigned to you at this time.</p>
+            </div>
+            
+            <div class="attendance-overview-body">
+              <!-- Left: Attendance stats summary -->
+              <div class="attendance-summary" id="attendanceSummary">
+                <!-- Dynamically rendered by JS -->
+              </div>
+              
+              <!-- Right: Attendance Trend -->
+              <div class="attendance-trend-wrapper">
+                <h3>Attendance Trend</h3>
+                <div class="attendance-grid-container">
+                  <div class="attendance-grid-scroll">
+                    <div class="attendance-grid-new" id="attendanceGridNew"></div>
+                  </div>
+                </div>
+                <!-- Legend -->
+                <div class="attendance-legend">
+                  <span class="legend-item"><span class="dot present"></span>Present</span>
+                  <span class="legend-item"><span class="dot lwp"></span>LWP</span>
+                  <span class="legend-item"><span class="dot cl"></span>CL</span>
+                  <span class="legend-item"><span class="dot miss-punch"></span>Miss Punch</span>
+                  <span class="legend-item"><span class="dot medical-leave"></span>Medical Leave</span>
+                  <span class="legend-item"><span class="dot week-off"></span>Week Off</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Bottom: Last 6 Records -->
+            <div class="attendance-records-section">
+              <h3>Last 6 Records</h3>
+              <div class="records-panel">
+                <button class="records-nav records-prev" type="button" aria-label="Previous records">
+                  <i data-lucide="chevron-left"></i>
+                </button>
+                <div class="records-cards" id="recordsCards">
+                  <!-- Dynamically rendered by JS -->
+                </div>
+                <button class="records-nav records-next" type="button" aria-label="Next records">
+                  <i data-lucide="chevron-right"></i>
+                </button>
+              </div>
             </div>
           </article>
 
@@ -214,35 +268,33 @@
             </article>
           </div>
 
-          <div class="right-column">
-            <article class="glass-card team-card">
-              <div class="card-head team-head">
-                <h2><i data-lucide="network"></i>My Team (28)</h2>
-                <label class="staff-search"><i data-lucide="search"></i><input type="search" placeholder="Staff Search" /></label>
+          <article class="glass-card team-card">
+            <div class="card-head team-head">
+              <h2><i data-lucide="network"></i>My Team (28)</h2>
+              <label class="staff-search"><i data-lucide="search"></i><input type="search" placeholder="Staff Search" /></label>
+            </div>
+            <div class="team-list" id="teamList"></div>
+            <a class="view-all" href="#">View All <i data-lucide="arrow-right"></i></a>
+          </article>
+
+          <div class="right-stack">
+            <article class="glass-card events-card">
+              <div class="card-head">
+                <h2><i data-lucide="calendar-check"></i>Upcoming Events</h2>
               </div>
-              <div class="team-list" id="teamList"></div>
-              <a class="view-all" href="#">View All <i data-lucide="arrow-right"></i></a>
+              <p>No event found. Please contact your concerned Event Coordinator to display your event information.</p>
+              <i data-lucide="calendar-days" class="event-watermark"></i>
             </article>
 
-            <div class="right-stack">
-              <article class="glass-card events-card">
-                <div class="card-head">
-                  <h2><i data-lucide="calendar-check"></i>Upcoming Events</h2>
-                </div>
-                <p>No event found. Please contact your concerned Event Coordinator to display your event information.</p>
-                <i data-lucide="calendar-days" class="event-watermark"></i>
-              </article>
-
-              <article class="glass-card jobs-card">
-                <div class="card-head">
-                  <h2><i data-lucide="briefcase-business"></i>Internal Job Postings</h2>
-                </div>
-                <div class="empty-copy">
-                  <b>There are currently no open positions.</b>
-                  <p>We appreciate your interest and encourage you to visit again for future openings.</p>
-                </div>
-              </article>
-            </div>
+            <article class="glass-card jobs-card">
+              <div class="card-head">
+                <h2><i data-lucide="briefcase-business"></i>Internal Job Postings</h2>
+              </div>
+              <div class="empty-copy">
+                <b>There are currently no open positions.</b>
+                <p>We appreciate your interest and encourage you to visit again for future openings.</p>
+              </div>
+            </article>
           </div>
 
           <article class="glass-card announcements-card">
@@ -473,6 +525,53 @@
           </div>
         </div>
 
+      </div>
+    </div>
+
+    <!-- ══ Add To Do Modal ══ -->
+    <div class="todo-modal-overlay" id="todoModal" role="dialog" aria-modal="true" aria-labelledby="todoModalTitle">
+      <div class="todo-modal">
+        <div class="todo-modal-head">
+          <h3 id="todoModalTitle">To Do List</h3>
+          <button class="todo-modal-close" id="todoModalClose" type="button" aria-label="Close">
+            <i data-lucide="x"></i>
+          </button>
+        </div>
+        <form class="todo-modal-form" id="todoAddForm">
+          <div class="todo-form-group">
+            <label for="todoTitle">To Do Title</label>
+            <textarea id="todoTitle" name="title" placeholder="Add To Do Title" rows="3" required></textarea>
+          </div>
+          <div class="todo-form-group">
+            <label for="todoTargetDate">Choose Target Date</label>
+            <div class="todo-date-field">
+              <input type="date" id="todoTargetDate" name="targetDate" required />
+              <i data-lucide="calendar"></i>
+            </div>
+          </div>
+          <fieldset class="todo-form-group todo-notify-group">
+            <legend>Notify Me!</legend>
+            <div class="todo-notify-options">
+              <label class="todo-notify-option">
+                <span class="todo-notify-label">
+                  <i data-lucide="message-square-text"></i>
+                  <span>Text Message</span>
+                </span>
+                <input type="checkbox" name="notifySms" />
+              </label>
+              <label class="todo-notify-option">
+                <span class="todo-notify-label">
+                  <i data-lucide="mail"></i>
+                  <span>Mail</span>
+                </span>
+                <input type="checkbox" name="notifyMail" />
+              </label>
+            </div>
+          </fieldset>
+          <div class="todo-modal-actions">
+            <button class="todo-submit-btn" type="submit"><i data-lucide="plus"></i> Add</button>
+          </div>
+        </form>
       </div>
     </div>
 
