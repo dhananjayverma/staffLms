@@ -11,13 +11,13 @@
     0 18px 45px rgba(77, 93, 135, 0.2),
     0 6px 16px rgba(77, 93, 135, 0.12);
   --radius: 18px;
-  --head-start: #e8f0ff;
-  --head-mid: #ebe8ff;
-  --head-end: #e3f7fa;
-  --head-shadow: rgba(99, 130, 210, 0.1);
-  --head-border: rgba(180, 198, 235, 0.42);
-  --head-text: #2a3654;
-  --head-muted: rgba(52, 68, 102, 0.72);
+  --head-start: #e0f2fe;
+  --head-mid: #e0e7ff;
+  --head-end: #fae8ff;
+  --head-shadow: rgba(79, 70, 229, 0.05);
+  --head-border: rgba(99, 102, 241, 0.18);
+  --head-text: #1e293b;
+  --head-muted: rgba(71, 85, 105, 0.8);
 }
 
 * {
@@ -80,13 +80,13 @@ body.dark-theme {
   background-position: 0 0, 0 0, center, center, center, center;
   background-size: 34px 34px, 34px 34px, auto, auto, auto, auto;
   color-scheme: dark;
-  --head-start: rgba(32, 44, 78, 0.94);
-  --head-mid: rgba(42, 36, 68, 0.92);
-  --head-end: rgba(24, 58, 72, 0.94);
-  --head-shadow: rgba(40, 80, 140, 0.16);
-  --head-border: rgba(255, 255, 255, 0.1);
-  --head-text: #eef3ff;
-  --head-muted: rgba(232, 240, 255, 0.72);
+  --head-start: rgba(15, 23, 42, 0.85);
+  --head-mid: rgba(30, 27, 75, 0.85);
+  --head-end: rgba(8, 47, 73, 0.85);
+  --head-shadow: rgba(0, 0, 0, 0.35);
+  --head-border: rgba(255, 255, 255, 0.06);
+  --head-text: #e2e8f0;
+  --head-muted: rgba(148, 163, 184, 0.8);
 }
 
 button,
@@ -1170,15 +1170,24 @@ body.dark-theme .purple-soft {
 
 .card-head h2 svg {
   flex: 0 0 auto;
-  width: 30px;
-  height: 30px;
-  padding: 7px;
-  color: #4a5f8c;
-  background: rgba(255, 255, 255, 0.58);
-  border: 1px solid rgba(255, 255, 255, 0.88);
-  border-radius: 9px;
-  box-shadow: 0 4px 14px rgba(71, 95, 150, 0.1);
+  width: 32px;
+  height: 32px;
+  padding: 8px;
+  color: #4f46e5;
+  background: rgba(255, 255, 255, 0.82);
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.08);
   stroke-width: 2.35;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.glass-card:hover .card-head h2 svg {
+  transform: scale(1.08) rotate(-4deg);
+  background: #ffffff;
+  color: #3b82f6;
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.15);
 }
 
 body.dark-theme .card-head {
@@ -1200,10 +1209,17 @@ body.dark-theme .card-head::after {
 }
 
 body.dark-theme .card-head h2 svg {
-  color: #dce8ff;
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.16);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+  color: #a5b4fc; /* Indigo 300 */
+  background: rgba(15, 23, 42, 0.6);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-theme .glass-card:hover .card-head h2 svg {
+  background: rgba(30, 41, 59, 0.8);
+  color: #60a5fa; /* Blue 400 */
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 6px 16px rgba(96, 165, 250, 0.25);
 }
 
 .ghost-btn,
@@ -1469,8 +1485,14 @@ body.dark-theme .card-head .month-select-btn svg {
   display: flex;
   flex-direction: column;
   min-width: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(248, 251, 255, 0.76));
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.72) 0%, rgba(244, 247, 254, 0.55) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 
+    0 20px 40px -15px rgba(37, 63, 108, 0.08),
+    inset 0 1px 1px rgba(255, 255, 255, 0.8),
+    inset 0 10px 20px -5px rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
   padding-bottom: 0;
 }
 
@@ -1501,68 +1523,119 @@ body.dark-theme .card-head .month-select-btn svg {
   gap: 10px;
 }
 
-.month-select-btn {
+/* Custom Pill Dropdown Button */
+.attendance-actions-wrapper .month-select-btn {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
-  border: 1px solid rgba(36, 48, 74, 0.1);
-  border-radius: 10px;
-  padding: 6px 14px;
-  color: #24304a;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.22);
+  border-radius: 99px; /* Pill shape */
+  padding: 8px 18px;
+  color: #1e293b;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.month-select-btn:hover {
-  background: #f8fafc;
-  border-color: rgba(36, 48, 74, 0.2);
+.attendance-actions-wrapper .month-select-btn:hover {
+  background: #ffffff;
+  border-color: rgba(79, 70, 229, 0.3); /* indigo tint */
+  color: #4f46e5;
+  box-shadow: 0 6px 16px rgba(79, 70, 229, 0.08);
+  transform: translateY(-1px) scale(1.02);
 }
 
-.month-select-btn svg {
+.attendance-actions-wrapper .month-select-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.attendance-actions-wrapper .month-select-btn svg {
   width: 14px;
   height: 14px;
   color: #64748b;
+  transition: color 0.3s ease;
 }
 
-.view-full-btn-top {
+.attendance-actions-wrapper .month-select-btn:hover svg {
+  color: #4f46e5;
+}
+
+/* Custom Action Button (View Full Attendance) */
+.attendance-actions-wrapper .view-full-btn-top {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #eff6ff;
-  border: 1px solid #bfdbfe;
-  border-radius: 10px;
-  padding: 6px 14px;
-  color: #2563eb;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  border: none;
+  border-radius: 99px; /* Pill shape */
+  padding: 8px 18px;
+  color: #ffffff;
   font-size: 12px;
   font-weight: 600;
   cursor: pointer;
   white-space: nowrap;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease;
-  box-shadow: 0 2px 6px rgba(37, 99, 235, 0.06);
+  box-shadow: 0 4px 14px rgba(79, 70, 229, 0.25);
   flex-shrink: 0;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-.view-full-btn-top:hover {
-  background: #dbeafe;
-  border-color: rgba(37, 99, 235, 0.35);
-  transform: translateY(-1px);
+.attendance-actions-wrapper .view-full-btn-top:hover {
+  background: linear-gradient(135deg, #4338ca 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+  transform: translateY(-2px) scale(1.03);
 }
 
-.view-full-btn-top svg {
+.attendance-actions-wrapper .view-full-btn-top:active {
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 3px 10px rgba(79, 70, 229, 0.2);
+}
+
+.attendance-actions-wrapper .view-full-btn-top svg {
   width: 14px;
   height: 14px;
   stroke-width: 2.2;
+  color: #ffffff;
+  transition: transform 0.3s ease;
+}
+
+.attendance-actions-wrapper .view-full-btn-top:hover svg {
+  transform: translateX(3px);
+}
+
+/* Dark Theme Overrides for Buttons */
+body.dark-theme .attendance-actions-wrapper .month-select-btn {
+  background: rgba(15, 23, 42, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-theme .attendance-actions-wrapper .month-select-btn:hover {
+  background: rgba(30, 41, 59, 0.7);
+  border-color: rgba(129, 140, 248, 0.4);
+  color: #818cf8;
+  box-shadow: 0 6px 16px rgba(129, 140, 248, 0.15);
+}
+
+body.dark-theme .attendance-actions-wrapper .month-select-btn svg {
+  color: #94a3b8;
+}
+
+body.dark-theme .attendance-actions-wrapper .month-select-btn:hover svg {
+  color: #818cf8;
+}
+
+body.dark-theme .attendance-actions-wrapper .view-full-btn-top {
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.3);
+}
+
+body.dark-theme .attendance-actions-wrapper .view-full-btn-top:hover {
+  background: linear-gradient(135deg, #4f46e5 0%, #2563eb 100%);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
 }
 
 .attendance-overview-body {
@@ -1654,6 +1727,7 @@ body.dark-theme .card-head .month-select-btn svg {
 .summary-item {
   --summary-accent: #64748b;
   --summary-accent-soft: rgba(100, 116, 139, 0.12);
+  --summary-bg-tint: rgba(255, 255, 255, 0.65);
   position: relative;
   z-index: 1;
   display: grid;
@@ -1665,19 +1739,15 @@ body.dark-theme .card-head .month-select-btn svg {
   height: 34px;
   padding: 0 10px 0 8px;
   box-sizing: border-box;
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(218, 226, 242, 0.76);
+  background: var(--summary-bg-tint);
+  border: 1px solid color-mix(in srgb, var(--summary-accent) 15%, rgba(218, 226, 242, 0.45));
   border-radius: 10px;
-  box-shadow: 0 5px 12px rgba(37, 63, 108, 0.04);
+  box-shadow: 0 4px 10px rgba(37, 63, 108, 0.03);
   overflow: hidden;
   opacity: 0;
   animation: summaryRiseUp 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
   animation-delay: var(--summary-delay, 0s);
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease,
-    border-color 0.25s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .summary-accent {
@@ -1695,10 +1765,10 @@ body.dark-theme .card-head .month-select-btn svg {
 }
 
 .summary-item:hover {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: color-mix(in srgb, var(--summary-accent) 25%, #fff);
-  box-shadow: 0 8px 18px color-mix(in srgb, var(--summary-accent) 12%, transparent);
-  transform: translateX(4px) translateY(-2px);
+  background: rgba(255, 255, 255, 0.92);
+  border-color: color-mix(in srgb, var(--summary-accent) 45%, rgba(218, 226, 242, 0.8));
+  box-shadow: 0 6px 14px color-mix(in srgb, var(--summary-accent) 15%, rgba(37, 63, 108, 0.06));
+  transform: translateX(6px) scale(1.02);
 }
 
 .summary-icon-box {
@@ -1751,31 +1821,37 @@ body.dark-theme .card-head .month-select-btn svg {
 .summary-item.present {
   --summary-accent: #16a34a;
   --summary-accent-soft: rgba(22, 163, 74, 0.14);
+  --summary-bg-tint: rgba(240, 253, 244, 0.65);
 }
 
 .summary-item.lwp {
   --summary-accent: #dc2626;
   --summary-accent-soft: rgba(220, 38, 38, 0.14);
+  --summary-bg-tint: rgba(254, 242, 242, 0.65);
 }
 
 .summary-item.cl {
   --summary-accent: #ea580c;
   --summary-accent-soft: rgba(234, 88, 12, 0.14);
+  --summary-bg-tint: rgba(255, 247, 237, 0.65);
 }
 
 .summary-item.miss-punch {
   --summary-accent: #9333ea;
   --summary-accent-soft: rgba(147, 51, 234, 0.14);
+  --summary-bg-tint: rgba(250, 245, 255, 0.65);
 }
 
 .summary-item.medical-leave {
   --summary-accent: #2563eb;
   --summary-accent-soft: rgba(37, 99, 235, 0.14);
+  --summary-bg-tint: rgba(239, 246, 255, 0.65);
 }
 
 .summary-item.week-off {
   --summary-accent: #475569;
   --summary-accent-soft: rgba(71, 85, 105, 0.14);
+  --summary-bg-tint: rgba(248, 250, 252, 0.65);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1866,29 +1942,33 @@ body.dark-theme .card-head .month-select-btn svg {
   width: 100%;
   aspect-ratio: 1;
   min-width: 0;
-  border-radius: 4px;
+  border-radius: 6px; /* Squircle shape */
   background: #f1f5f9;
-  transition:
-    background 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   cursor: pointer;
 }
 
-.trend-cell:hover {
-  transform: scale(1.25);
-  box-shadow: 0 0 6px rgba(0, 0, 0, 0.15);
-  z-index: 1;
+.trend-cell:hover:not(.inactive) {
+  transform: scale(1.35);
+  box-shadow: 
+    0 0 0 2px #ffffff,
+    0 8px 16px rgba(0, 0, 0, 0.15);
+  z-index: 2;
 }
 
 /* Trend Cell colors */
-.trend-cell.present { background: #22c55e; }
+.trend-cell.present { background: #10b981; }
 .trend-cell.lwp { background: #ef4444; }
 .trend-cell.cl { background: #f97316; }
-.trend-cell.miss-punch { background: #c084fc; }
+.trend-cell.miss-punch { background: #8b5cf6; }
 .trend-cell.medical-leave { background: #3b82f6; }
-.trend-cell.week-off { background: #e2e8f0; }
-.trend-cell.inactive { background: rgba(34, 197, 94, 0.18); }
+.trend-cell.week-off { background: #94a3b8; }
+.trend-cell.inactive { 
+  background: rgba(241, 245, 249, 0.5); 
+  border: 1px dashed rgba(148, 163, 184, 0.2);
+  cursor: default;
+  pointer-events: none;
+}
 
 /* Legend */
 .attendance-legend {
@@ -1915,12 +1995,12 @@ body.dark-theme .card-head .month-select-btn svg {
   border-radius: 999px;
 }
 
-.legend-item .dot.present { background: #22c55e; }
+.legend-item .dot.present { background: #10b981; }
 .legend-item .dot.lwp { background: #ef4444; }
 .legend-item .dot.cl { background: #f97316; }
-.legend-item .dot.miss-punch { background: #c084fc; }
+.legend-item .dot.miss-punch { background: #8b5cf6; }
 .legend-item .dot.medical-leave { background: #3b82f6; }
-.legend-item .dot.week-off { background: #cbd5e1; }
+.legend-item .dot.week-off { background: #94a3b8; }
 
 /* Bottom: Last 6 Records section */
 .attendance-records-section {
@@ -1949,17 +2029,13 @@ body.dark-theme .card-head .month-select-btn svg {
   width: 32px;
   height: 32px;
   place-items: center;
-  color: #7f8796;
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(255, 255, 255, 0.72);
+  color: #64748b;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(148, 163, 184, 0.22);
   border-radius: 999px;
-  box-shadow: var(--shadow);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
   cursor: pointer;
-  transition:
-    background 0.2s ease,
-    color 0.2s ease,
-    transform 0.2s ease,
-    opacity 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 .records-nav svg {
@@ -1970,8 +2046,10 @@ body.dark-theme .card-head .month-select-btn svg {
 
 .records-nav:hover:not(:disabled):not(.is-disabled) {
   color: #fff;
-  background: var(--red);
-  transform: scale(1.06);
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  border-color: transparent;
+  transform: scale(1.12);
+  box-shadow: 0 6px 14px rgba(79, 70, 229, 0.35);
 }
 
 .records-nav:disabled,
@@ -1982,9 +2060,17 @@ body.dark-theme .card-head .month-select-btn svg {
 }
 
 body.dark-theme .records-nav {
+  color: #e2e8f0;
+  background: rgba(15, 23, 42, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .records-nav:hover:not(:disabled):not(.is-disabled) {
   color: #fff;
-  background: rgba(7, 9, 14, 0.94);
-  border: 1px solid var(--line);
+  background: linear-gradient(135deg, #6366f1 0%, #3b82f6 100%);
+  border-color: transparent;
+  box-shadow: 0 6px 14px rgba(99, 102, 241, 0.4);
 }
 
 .records-cards {
@@ -2269,44 +2355,69 @@ body.dark-theme .records-nav {
   transform: translateX(2px);
 }
 
-/* Status accent colors */
+/* Status accent colors and premium gradients */
 .record-card.present {
-  --card-accent: #16a34a;
-  --card-accent-soft: rgba(22, 163, 74, 0.14);
+  --card-accent: #10b981;
+  --card-accent-soft: rgba(16, 185, 129, 0.14);
+  background: linear-gradient(135deg, rgba(240, 253, 244, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.04);
 }
 
 .record-card.week-off {
-  --card-accent: #16a34a;
-  --card-accent-soft: rgba(22, 163, 74, 0.14);
+  --card-accent: #64748b;
+  --card-accent-soft: rgba(100, 116, 139, 0.14);
+  background: linear-gradient(135deg, rgba(248, 250, 252, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(100, 116, 139, 0.25);
+  box-shadow: 0 6px 16px rgba(100, 116, 139, 0.04);
 }
 
 .record-card.lwp {
-  --card-accent: #dc2626;
-  --card-accent-soft: rgba(220, 38, 38, 0.14);
+  --card-accent: #ef4444;
+  --card-accent-soft: rgba(239, 68, 68, 0.14);
+  background: linear-gradient(135deg, rgba(254, 242, 242, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(239, 68, 68, 0.25);
+  box-shadow: 0 6px 16px rgba(239, 68, 68, 0.04);
 }
 
 .record-card.cl {
-  --card-accent: #ea580c;
-  --card-accent-soft: rgba(234, 88, 12, 0.14);
+  --card-accent: #f97316;
+  --card-accent-soft: rgba(249, 115, 22, 0.14);
+  background: linear-gradient(135deg, rgba(255, 247, 237, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(249, 115, 22, 0.25);
+  box-shadow: 0 6px 16px rgba(249, 115, 22, 0.04);
 }
 
 .record-card.miss-punch {
-  --card-accent: #9333ea;
-  --card-accent-soft: rgba(147, 51, 234, 0.14);
+  --card-accent: #8b5cf6;
+  --card-accent-soft: rgba(139, 92, 246, 0.14);
+  background: linear-gradient(135deg, rgba(250, 245, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(139, 92, 246, 0.25);
+  box-shadow: 0 6px 16px rgba(139, 92, 246, 0.04);
 }
 
 .record-card.medical-leave {
-  --card-accent: #2563eb;
-  --card-accent-soft: rgba(37, 99, 235, 0.14);
+  --card-accent: #3b82f6;
+  --card-accent-soft: rgba(59, 130, 246, 0.14);
+  background: linear-gradient(135deg, rgba(239, 246, 255, 0.85) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-color: rgba(59, 130, 246, 0.25);
+  box-shadow: 0 6px 16px rgba(59, 130, 246, 0.04);
 }
 
-.record-card.present .record-card-status,
-.record-card.week-off .record-card-status { color: #16a34a; }
+/* Hover Shadows & Glows */
+.record-card.present:hover { box-shadow: 0 12px 24px -8px rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.45); }
+.record-card.week-off:hover { box-shadow: 0 12px 24px -8px rgba(100, 116, 139, 0.3); border-color: rgba(100, 116, 139, 0.45); }
+.record-card.lwp:hover { box-shadow: 0 12px 24px -8px rgba(239, 68, 68, 0.3); border-color: rgba(239, 68, 68, 0.45); }
+.record-card.cl:hover { box-shadow: 0 12px 24px -8px rgba(249, 115, 22, 0.3); border-color: rgba(249, 115, 22, 0.45); }
+.record-card.miss-punch:hover { box-shadow: 0 12px 24px -8px rgba(139, 92, 246, 0.3); border-color: rgba(139, 92, 246, 0.45); }
+.record-card.medical-leave:hover { box-shadow: 0 12px 24px -8px rgba(59, 130, 246, 0.3); border-color: rgba(59, 130, 246, 0.45); }
 
-.record-card.lwp .record-card-status { color: #dc2626; }
-.record-card.cl .record-card-status { color: #ea580c; }
-.record-card.miss-punch .record-card-status { color: #9333ea; }
-.record-card.medical-leave .record-card-status { color: #2563eb; }
+.record-card.present .record-card-status { color: #10b981; }
+.record-card.week-off .record-card-status { color: #64748b; }
+.record-card.lwp .record-card-status { color: #ef4444; }
+.record-card.cl .record-card-status { color: #f97316; }
+.record-card.miss-punch .record-card-status { color: #8b5cf6; }
+.record-card.medical-leave .record-card-status { color: #3b82f6; }
 
 @media (prefers-reduced-motion: reduce) {
   .record-card {
@@ -3925,13 +4036,38 @@ body.dark-theme .view-full-btn-top:hover {
 }
 
 body.dark-theme .summary-item {
-  background: rgba(255, 255, 255, 0.045);
-  border-color: var(--line);
+  background: var(--summary-bg-tint);
+  border-color: color-mix(in srgb, var(--summary-accent) 22%, rgba(255, 255, 255, 0.08));
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 body.dark-theme .summary-item:hover {
-  background: rgba(255, 255, 255, 0.075);
+  background: rgba(255, 255, 255, 0.09);
+  border-color: color-mix(in srgb, var(--summary-accent) 45%, rgba(255, 255, 255, 0.15));
+}
+
+body.dark-theme .summary-item.present {
+  --summary-bg-tint: rgba(22, 163, 74, 0.08);
+}
+
+body.dark-theme .summary-item.lwp {
+  --summary-bg-tint: rgba(220, 38, 38, 0.08);
+}
+
+body.dark-theme .summary-item.cl {
+  --summary-bg-tint: rgba(234, 88, 12, 0.08);
+}
+
+body.dark-theme .summary-item.miss-punch {
+  --summary-bg-tint: rgba(147, 51, 234, 0.08);
+}
+
+body.dark-theme .summary-item.medical-leave {
+  --summary-bg-tint: rgba(37, 99, 235, 0.08);
+}
+
+body.dark-theme .summary-item.week-off {
+  --summary-bg-tint: rgba(71, 85, 105, 0.08);
 }
 
 body.dark-theme .attendance-summary::after {
@@ -3957,12 +4093,19 @@ body.dark-theme .attendance-grid-container {
   border-color: var(--line);
 }
 
+body.dark-theme .trend-cell:hover:not(.inactive) {
+  box-shadow: 
+    0 0 0 2px #0f172a,
+    0 8px 16px rgba(0, 0, 0, 0.5);
+}
+
 body.dark-theme .trend-cell.inactive {
-  background: rgba(74, 222, 128, 0.12);
+  background: rgba(30, 41, 59, 0.35);
+  border: 1px dashed rgba(255, 255, 255, 0.05);
 }
 
 body.dark-theme .trend-cell.week-off {
-  background: #111827;
+  background: #475569;
 }
 
 /* Records cards in dark theme */
@@ -4031,28 +4174,54 @@ body.dark-theme .record-time-value.is-status {
 }
 
 body.dark-theme .record-card.present {
-  --card-accent-soft: rgba(74, 222, 128, 0.16);
+  --card-accent-soft: rgba(16, 185, 129, 0.16);
+  --card-accent: #10b981;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(16, 185, 129, 0.2);
 }
 
 body.dark-theme .record-card.week-off {
-  --card-accent-soft: rgba(74, 222, 128, 0.16);
+  --card-accent-soft: rgba(148, 163, 184, 0.16);
+  --card-accent: #94a3b8;
+  background: linear-gradient(135deg, rgba(71, 85, 105, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(148, 163, 184, 0.2);
 }
 
 body.dark-theme .record-card.lwp {
-  --card-accent-soft: rgba(248, 113, 113, 0.16);
+  --card-accent-soft: rgba(239, 68, 68, 0.16);
+  --card-accent: #ef4444;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(239, 68, 68, 0.2);
 }
 
 body.dark-theme .record-card.cl {
-  --card-accent-soft: rgba(251, 146, 60, 0.16);
+  --card-accent-soft: rgba(249, 115, 22, 0.16);
+  --card-accent: #f97316;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(249, 115, 22, 0.2);
 }
 
 body.dark-theme .record-card.miss-punch {
-  --card-accent-soft: rgba(192, 132, 252, 0.16);
+  --card-accent-soft: rgba(139, 92, 246, 0.16);
+  --card-accent: #8b5cf6;
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(139, 92, 246, 0.2);
 }
 
 body.dark-theme .record-card.medical-leave {
-  --card-accent-soft: rgba(96, 165, 250, 0.16);
+  --card-accent-soft: rgba(59, 130, 246, 0.16);
+  --card-accent: #3b82f6;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border-color: rgba(59, 130, 246, 0.2);
 }
+
+/* Hover glow shadows in dark theme */
+body.dark-theme .record-card.present:hover { box-shadow: 0 12px 24px -8px rgba(16, 185, 129, 0.45); border-color: rgba(16, 185, 129, 0.45); }
+body.dark-theme .record-card.week-off:hover { box-shadow: 0 12px 24px -8px rgba(148, 163, 184, 0.45); border-color: rgba(148, 163, 184, 0.45); }
+body.dark-theme .record-card.lwp:hover { box-shadow: 0 12px 24px -8px rgba(239, 68, 68, 0.45); border-color: rgba(239, 68, 68, 0.45); }
+body.dark-theme .record-card.cl:hover { box-shadow: 0 12px 24px -8px rgba(249, 115, 22, 0.45); border-color: rgba(249, 115, 22, 0.45); }
+body.dark-theme .record-card.miss-punch:hover { box-shadow: 0 12px 24px -8px rgba(139, 92, 246, 0.45); border-color: rgba(139, 92, 246, 0.45); }
+body.dark-theme .record-card.medical-leave:hover { box-shadow: 0 12px 24px -8px rgba(59, 130, 246, 0.45); border-color: rgba(59, 130, 246, 0.45); }
 
 body.dark-theme .record-card.present .record-card-status,
 body.dark-theme .record-card.week-off .record-card-status { color: #4ade80; }
@@ -4063,8 +4232,14 @@ body.dark-theme .record-card.miss-punch .record-card-status { color: #c084fc; }
 body.dark-theme .record-card.medical-leave .record-card-status { color: #60a5fa; }
 
 body.dark-theme .attendance-card {
-  background:
-    linear-gradient(180deg, rgba(10, 13, 20, 0.96), rgba(5, 7, 11, 0.94));
+  background: linear-gradient(135deg, rgba(15, 23, 42, 0.7) 0%, rgba(30, 41, 59, 0.5) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 
+    0 20px 40px -15px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0px rgba(255, 255, 255, 0.1),
+    inset 0 10px 20px -5px rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(20px) saturate(160%);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
 }
 
 
