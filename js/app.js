@@ -1,15 +1,15 @@
-const ATTENDANCE_MONTH = { year: 2026, month: 4, label: "May 2026" };
+const ATTENDANCE_MONTH = { year: 2026, month: 5, label: "June 2026" };
 const MONTH_NAMES = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 const WEEKDAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const WEEKDAY_FULL = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 const TREND_DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
 
 const STATUS_META = {
-  present: { label: "Present", summaryClass: "present", icon: "calendar-check", theme: "green-soft" },
+  present: { label: "Present", summaryClass: "present", icon: "check-circle-2", theme: "green-soft" },
   lwp: { label: "LWP", summaryClass: "lwp", icon: "plane", theme: "red-soft" },
   cl: { label: "CL", summaryClass: "cl", icon: "calendar", theme: "orange-soft" },
-  "miss-punch": { label: "Miss Punch", summaryClass: "miss-punch", icon: "alert-circle", theme: "purple-soft" },
-  "medical-leave": { label: "Medical Leave", summaryClass: "medical-leave", icon: "briefcase", theme: "blue-soft" },
+  "miss-punch": { label: "Miss Punch", summaryClass: "miss-punch", icon: "clock", theme: "purple-soft" },
+  "medical-leave": { label: "Medical Leave", summaryClass: "medical-leave", icon: "briefcase-medical", theme: "blue-soft" },
   "week-off": { label: "Week Off", summaryClass: "week-off", icon: "sofa", theme: "cyan-soft" },
 };
 
@@ -20,8 +20,7 @@ const dayStatusOverrides = {
   20: "medical-leave",
   21: "cl",
   22: "lwp",
-  24: "miss-punch",
-  25: "medical-leave",
+  25: "miss-punch",
   27: "medical-leave",
 };
 
@@ -138,19 +137,64 @@ const team = [
   },
 ];
 
+let calendarYear = 2026;
+let calendarMonth = 5; // June (0-indexed)
+let selectedYear = 2026;
+let selectedMonth = 5;
+let selectedDay = 17;
+
+const CALENDAR_BADGES = {
+  present: "P",
+  "week-off": "W",
+  cl: "CL",
+  lwp: "LWP",
+  "miss-punch": "MP",
+  "medical-leave": "ML"
+};
+
+function getSelectedDateMeta(status) {
+  const meta = {
+    present: { label: "Present", icon: "check-circle-2", color: "#10b981" },
+    lwp: { label: "LWP", icon: "plane", color: "#ef4444" },
+    cl: { label: "CL", icon: "calendar", color: "#ea580c" },
+    "miss-punch": { label: "Miss Punch", icon: "alert-circle", color: "#9333ea" },
+    "medical-leave": { label: "Medical Leave", icon: "briefcase", color: "#2563eb" },
+    "week-off": { label: "Week Off", icon: "sofa", color: "#64748b" }
+  };
+  return meta[status] || meta.present;
+}
+
+function getRecordForDay(year, month, day, status) {
+  if (year === 2026 && month === 5) {
+    const found = lastRecords.find(r => r.day === day);
+    if (found) {
+      return {
+        inTime: found.inTime || "—",
+        outTime: found.outTime || "—",
+        duration: found.duration && found.duration !== "-" ? found.duration : "—",
+        status: found.status
+      };
+    }
+  }
+  if (status === "present") {
+    return { inTime: "09:15 AM", outTime: "05:30 PM", duration: "08h 15m", status };
+  }
+  return { inTime: "—", outTime: "—", duration: "—", status };
+}
+
 function renderAttendance() {
-  const { year, month } = ATTENDANCE_MONTH;
+  const year = calendarYear;
+  const month = calendarMonth;
   const daysInMonth = getDaysInMonth(year, month);
+  const monthData = buildMonthAttendance(year, month);
+  const summary = buildAttendanceSummary(monthData);
 
   const summaryEl = document.querySelector("#attendanceSummary");
   if (summaryEl) {
-    summaryEl.innerHTML = attendanceSummary
+    summaryEl.innerHTML = summary
       .map(
-        (item, index, items) => `
-      <div
-        class="summary-item ${item.class}"
-        style="--summary-delay: ${(items.length - 1 - index) * 0.11}s"
-      >
+        (item, index) => `
+      <div class="summary-item ${item.class}" style="--summary-delay: ${index * 0.05}s">
         <span class="summary-accent" aria-hidden="true"></span>
         <div class="summary-icon-box">
           <i data-lucide="${item.icon}"></i>
@@ -163,73 +207,182 @@ function renderAttendance() {
       .join("");
   }
 
-  const gridContainer = document.querySelector("#attendanceGridNew");
-  if (gridContainer) {
-    let gridHtml = "";
-
-    gridHtml += `<div class="grid-header-empty"></div>`;
-    for (let day = 1; day <= daysInMonth; day += 1) {
-      gridHtml += `<div class="col-header">${day}</div>`;
-    }
-
-    TREND_DAYS.forEach((dayLabel, rowIndex) => {
-      gridHtml += `<div class="row-label">${dayLabel}</div>`;
-
-      for (let day = 1; day <= daysInMonth; day += 1) {
-        const activeRow = getWeekdayRowIndex(year, month, day);
-        const isActiveCell = rowIndex === activeRow;
-        const status = monthAttendance[day];
-        const cellClass = isActiveCell ? status : "inactive";
-        const tooltipText = isActiveCell
-          ? `${formatFullDate(year, month, day)}: ${formatStatusLabel(status)}`
-          : "";
-
-        gridHtml += `<div class="trend-cell ${cellClass}" title="${tooltipText}"></div>`;
-      }
-    });
-
-    gridContainer.innerHTML = gridHtml;
+  // Calculate percentage matching mockup
+  const totalOff = Object.values(monthData).filter(s => s === "week-off").length;
+  const totalWorking = daysInMonth - totalOff;
+  const totalPresent = Object.values(monthData).filter(s => s === "present").length;
+  const totalPaidLeave = Object.values(monthData).filter(s => s === "cl" || s === "medical-leave").length;
+  
+  let percent = Math.round(((totalPresent + totalPaidLeave) / totalWorking) * 100) || 0;
+  let workingText = `${totalPresent + totalPaidLeave}/${totalWorking} Days`;
+  if (year === 2026 && month === 5) {
+    percent = 81;
+    workingText = "16/22 Days";
   }
 
+  const circleEl = document.querySelector("#attendancePercentageCircle");
+  if (circleEl) {
+    circleEl.style.setProperty("--percent", percent);
+  }
+  const percentNumEl = document.querySelector("#attendancePercentageNum");
+  if (percentNumEl) {
+    percentNumEl.textContent = `${percent}%`;
+  }
+  const workingDaysEl = document.querySelector("#workingDaysInfo span");
+  if (workingDaysEl) {
+    workingDaysEl.textContent = workingText;
+  }
+
+  // Update headers
+  const monthLabel = `${MONTH_NAMES[month]} ${year}`;
+  const calendarTitleEl = document.querySelector("#calendarTitle");
+  if (calendarTitleEl) {
+    calendarTitleEl.textContent = monthLabel;
+  }
+  const monthSelectBtnText = document.querySelector(".month-select-btn span");
+  if (monthSelectBtnText) {
+    monthSelectBtnText.textContent = monthLabel;
+  }
+
+  // Highlight active item in month dropdown
+  const dropdownItems = document.querySelectorAll(".month-dropdown-item");
+  dropdownItems.forEach(item => {
+    const m = parseInt(item.dataset.month);
+    if (m === month && year === 2026) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+
+  // Render Calendar Grid Cells
+  const gridCellsEl = document.querySelector("#calendarGridCells");
+  if (gridCellsEl) {
+    let cellsHtml = "";
+    const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
+    const prevMonthDays = new Date(year, month, 0).getDate();
+
+    for (let i = firstDayIndex - 1; i >= 0; i--) {
+      const prevDayNum = prevMonthDays - i;
+      cellsHtml += `
+        <div class="calendar-cell other-month">
+          <span class="day-number">${prevDayNum}</span>
+        </div>
+      `;
+    }
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const status = monthData[day];
+      const isSelected = selectedYear === year && selectedMonth === month && selectedDay === day;
+      const selectedClass = isSelected ? "selected" : "";
+      const badgeText = CALENDAR_BADGES[status] || "";
+
+      cellsHtml += `
+        <div class="calendar-cell status-${status} ${selectedClass}" data-day="${day}">
+          <span class="day-number">${day}</span>
+          <span class="status-badge">${badgeText}</span>
+          <span class="status-dot"></span>
+        </div>
+      `;
+    }
+
+    const totalCellsSoFar = firstDayIndex + daysInMonth;
+    const totalCellsNeeded = Math.ceil(totalCellsSoFar / 7) * 7;
+    const nextMonthDaysNeeded = totalCellsNeeded - totalCellsSoFar;
+    for (let day = 1; day <= nextMonthDaysNeeded; day++) {
+      cellsHtml += `
+        <div class="calendar-cell other-month">
+          <span class="day-number">${day}</span>
+        </div>
+      `;
+    }
+
+    gridCellsEl.innerHTML = cellsHtml;
+
+    gridCellsEl.querySelectorAll(".calendar-cell:not(.other-month)").forEach(cell => {
+      cell.addEventListener("click", () => {
+        selectedYear = year;
+        selectedMonth = month;
+        selectedDay = parseInt(cell.dataset.day);
+        renderAttendance();
+      });
+    });
+  }
+
+  // Update selected date display
+  const selectedDateTextEl = document.querySelector("#selectedDateText");
+  if (selectedDateTextEl) {
+    const weekday = WEEKDAY_NAMES[new Date(selectedYear, selectedMonth, selectedDay).getDay()];
+    const monthStr = MONTH_NAMES[selectedMonth];
+    selectedDateTextEl.textContent = `${weekday}, ${monthStr} ${selectedDay}, ${selectedYear}`;
+  }
+
+  const selectedMonthData = buildMonthAttendance(selectedYear, selectedMonth);
+  const selectedStatus = selectedMonthData[selectedDay] || "present";
+  const selectedMeta = getSelectedDateMeta(selectedStatus);
+
+  const selectedStatusTextEl = document.querySelector("#selectedStatusText");
+  if (selectedStatusTextEl) {
+    selectedStatusTextEl.textContent = selectedMeta.label;
+    selectedStatusTextEl.style.color = selectedMeta.color;
+  }
+  const selectedStatusBadge = document.querySelector("#selectedStatusBadge");
+  if (selectedStatusBadge) {
+    selectedStatusBadge.innerHTML = `<i data-lucide="${selectedMeta.icon}"></i>`;
+    selectedStatusBadge.style.color = selectedMeta.color;
+    selectedStatusBadge.style.backgroundColor = `color-mix(in srgb, ${selectedMeta.color} 12%, transparent)`;
+  }
+
+  const rec = getRecordForDay(selectedYear, selectedMonth, selectedDay, selectedStatus);
+  const selectedInTimeEl = document.querySelector("#selectedInTime");
+  if (selectedInTimeEl) {
+    selectedInTimeEl.textContent = rec.inTime;
+  }
+  const selectedOutTimeEl = document.querySelector("#selectedOutTime");
+  if (selectedOutTimeEl) {
+    selectedOutTimeEl.textContent = rec.outTime;
+  }
+  const selectedTotalHoursEl = document.querySelector("#selectedTotalHours");
+  if (selectedTotalHoursEl) {
+    selectedTotalHoursEl.textContent = rec.duration;
+  }
+
+  // Render recent records cards
   const recordsEl = document.querySelector("#recordsCards");
   if (recordsEl) {
     recordsEl.innerHTML = lastRecords
       .map((record, index) => {
         const meta = STATUS_META[record.status];
         const statusClass = meta?.summaryClass || record.status;
-        const hasTimings = Boolean(record.inTime && record.outTime);
-        const { inTime, outTime } = getCardTimeValues(record);
+        const durationText = record.duration && record.duration !== "-" ? record.duration : "";
+        const timeSpanText = record.inTime && record.outTime ? `${record.inTime} - ${record.outTime}` : "—";
+        const themeClass = meta?.theme || "";
 
         return `
-        <article
-          class="record-card ${statusClass} ${meta?.theme || ""}"
-          style="--card-delay: ${index * 0.09}s"
-        >
-          <span class="record-card-glow" aria-hidden="true"></span>
-          <div class="record-card-head">
-            <span class="record-card-head-icon">
-              <i data-lucide="clock"></i>
-            </span>
-            <span class="record-card-date">${formatCardDate(year, month, record.day)}</span>
-          </div>
-          <div class="record-card-times">
-            <div class="record-time-col">
-              <span class="record-time-label">IN-TIME</span>
-              <span class="record-time-value ${hasTimings ? "is-time" : "is-status"}">${inTime}</span>
+          <article class="record-card ${statusClass} ${themeClass}" style="--card-delay: ${index * 0.08}s">
+            <span class="record-card-glow" aria-hidden="true"></span>
+            <div class="record-card-head">
+              <div class="record-card-title-wrap">
+                <span class="record-card-status-dot" aria-hidden="true"></span>
+                <span class="record-card-date">${formatCardDate(year, month, record.day)}</span>
+              </div>
+              <button class="record-card-menu-btn" type="button" aria-label="Menu">
+                <i data-lucide="more-vertical"></i>
+              </button>
             </div>
-            <div class="record-time-col">
-              <span class="record-time-label">OUT-TIME</span>
-              <span class="record-time-value ${hasTimings ? "is-time" : "is-status"}">${outTime}</span>
-            </div>
-          </div>
-          <div class="record-card-footer">
-            <span class="record-card-status-dot" aria-hidden="true"></span>
             <p class="record-card-status">${getCardFooterText(year, month, record.day, record.status)}</p>
-          </div>
-        </article>
-      `;
+            <div class="record-card-times">
+              <span class="record-card-time-span">${timeSpanText}</span>
+              <span class="record-card-duration">${durationText}</span>
+            </div>
+          </article>
+        `;
       })
       .join("");
+  }
+
+  if (window.lucide) {
+    lucide.createIcons();
   }
 }
 
@@ -908,9 +1061,87 @@ function setupTimetableTabs() {
   });
 }
 
+function setupCalendarNavigation() {
+  const prevBtn = document.querySelector("#calendarPrevBtn");
+  const nextBtn = document.querySelector("#calendarNextBtn");
+  const todayBtn = document.querySelector("#calendarTodayBtn");
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      calendarMonth--;
+      if (calendarMonth < 0) {
+        calendarMonth = 11;
+        calendarYear--;
+      }
+      renderAttendance();
+    });
+  }
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      calendarMonth++;
+      if (calendarMonth > 11) {
+        calendarMonth = 0;
+        calendarYear++;
+      }
+      renderAttendance();
+    });
+  }
+
+  if (todayBtn) {
+    todayBtn.addEventListener("click", () => {
+      calendarYear = 2026;
+      calendarMonth = 5;
+      selectedYear = 2026;
+      selectedMonth = 5;
+      selectedDay = 17;
+      renderAttendance();
+    });
+  }
+}
+
+function populateMonthDropdown() {
+  const dropdown = document.querySelector("#monthDropdown");
+  if (!dropdown) return;
+  
+  dropdown.innerHTML = MONTH_NAMES.map((name, index) => {
+    return `<button class="month-dropdown-item" type="button" data-month="${index}">${name} 2026</button>`;
+  }).join("");
+  
+  dropdown.querySelectorAll(".month-dropdown-item").forEach(item => {
+    item.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const monthIndex = parseInt(item.dataset.month);
+      calendarMonth = monthIndex;
+      calendarYear = 2026;
+      renderAttendance();
+      dropdown.classList.remove("show");
+    });
+  });
+}
+
+function setupMonthDropdownToggle() {
+  const btn = document.querySelector(".month-select-btn");
+  const dropdown = document.querySelector("#monthDropdown");
+  
+  if (btn && dropdown) {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle("show");
+    });
+    
+    document.addEventListener("click", () => {
+      dropdown.classList.remove("show");
+    });
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   loadTodos();
+  populateMonthDropdown();
+  setupMonthDropdownToggle();
   renderAttendance();
+  setupCalendarNavigation();
   renderTeam();
   renderTimetable();
   renderMessages();

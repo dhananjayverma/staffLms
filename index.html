@@ -185,13 +185,19 @@
 
           <article class="glass-card attendance-card">
             <div class="card-head attendance-head">
-              <h2><i data-lucide="calendar-check" class="overview-icon"></i>Attendance Overview</h2>
+              <div class="card-title-group">
+                <h2><i data-lucide="calendar-check" class="overview-icon"></i>Attendance Overview</h2>
+                <p class="card-subtitle">Track your attendance and view monthly summary</p>
+              </div>
               <div class="attendance-actions-wrapper">
-                <button class="month-select-btn" type="button">
-                  <i data-lucide="calendar"></i>
-                  <span>May 2026</span>
-                  <i data-lucide="chevron-down"></i>
-                </button>
+                <div class="month-select-wrapper">
+                  <button class="month-select-btn" type="button">
+                    <i data-lucide="calendar"></i>
+                    <span>June 2026</span>
+                    <i data-lucide="chevron-down"></i>
+                  </button>
+                  <div class="month-dropdown" id="monthDropdown"></div>
+                </div>
                 <button class="view-full-btn-top" type="button">
                   <span>View Full Attendance</span>
                   <i data-lucide="arrow-right"></i>
@@ -200,19 +206,52 @@
             </div>
             
             <div class="attendance-overview-body">
-              <!-- Left: Attendance stats summary -->
-              <div class="attendance-summary" id="attendanceSummary">
-                <!-- Dynamically rendered by JS -->
-              </div>
-              
-              <!-- Right: Attendance Trend -->
-              <div class="attendance-trend-wrapper">
-                <h3>Attendance Trend</h3>
-                <div class="attendance-grid-container">
-                  <div class="attendance-grid-scroll">
-                    <div class="attendance-grid-new" id="attendanceGridNew"></div>
+              <!-- Left Column: Attendance Summary & Attendance % -->
+              <div class="attendance-left-column">
+                <div class="attendance-percentage-card">
+                  <h3>Attendance %</h3>
+                  <div class="percentage-circle-wrapper">
+                    <div class="percentage-circle" id="attendancePercentageCircle" style="--percent: 81;">
+                      <svg width="90" height="90" viewBox="0 0 90 90">
+                        <circle class="bg" cx="45" cy="45" r="38"></circle>
+                        <circle class="fg" cx="45" cy="45" r="38"></circle>
+                      </svg>
+                      <div class="percentage-text">
+                        <span class="percent-num" id="attendancePercentageNum">81%</span>
+                        <span class="percent-label">Present</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="working-days-info" id="workingDaysInfo">
+                    Total Working Days <span>16/22 Days</span>
                   </div>
                 </div>
+                <div class="attendance-summary-card">
+                  <h3>Attendance Summary</h3>
+                  <div class="attendance-summary" id="attendanceSummary">
+                    <!-- Dynamically rendered by JS -->
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Middle Column: Calendar -->
+              <div class="attendance-calendar-card">
+                <div class="calendar-header">
+                  <span class="calendar-title" id="calendarTitle">June 2026</span>
+                  <div class="calendar-nav-buttons">
+                    <button class="calendar-nav-btn today" id="calendarTodayBtn">Today</button>
+                    <button class="calendar-nav-btn prev" id="calendarPrevBtn" aria-label="Previous month"><i data-lucide="chevron-left"></i></button>
+                    <button class="calendar-nav-btn next" id="calendarNextBtn" aria-label="Next month"><i data-lucide="chevron-right"></i></button>
+                  </div>
+                </div>
+                
+                <div class="calendar-grid-header">
+                  <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                </div>
+                <div class="calendar-grid-cells" id="calendarGridCells">
+                  <!-- Dynamically rendered by JS -->
+                </div>
+                
                 <!-- Legend -->
                 <div class="attendance-legend">
                   <span class="legend-item"><span class="dot present"></span>Present</span>
@@ -223,11 +262,16 @@
                   <span class="legend-item"><span class="dot week-off"></span>Week Off</span>
                 </div>
               </div>
-            </div>
+              
 
-            <!-- Bottom: Last 6 Records -->
+            </div>
+            
+            <!-- Bottom: Recent Attendance -->
             <div class="attendance-records-section">
-              <h3>Last 6 Records</h3>
+              <div class="records-header">
+                <h3>Recent Attendance</h3>
+                <a href="#" class="view-all-records-link">View All</a>
+              </div>
               <div class="records-panel">
                 <button class="records-nav records-prev" type="button" aria-label="Previous records">
                   <i data-lucide="chevron-left"></i>
